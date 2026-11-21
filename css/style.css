@@ -1,0 +1,371 @@
+/* ===== Colours and basic settings (change them here) ===== */
+:root {
+  --red: #d10000;
+  --red-dark: #a80000;
+  --black: #111111;
+  --white: #ffffff;
+  --grey: #f4f4f4;
+  --green: #1faa59;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, "Noto Sans Devanagari", sans-serif;
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ===== Header ===== */
+.site-header {
+  position: relative;
+  background: var(--red);
+  color: var(--white);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-bottom: 4px solid var(--black);
+}
+.site-title   { margin: 0; font-size: 2rem; letter-spacing: 0.5px; }
+.site-tagline { margin: 0.25rem 0 0; font-weight: 600; }
+
+.home-link {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.35rem 0.8rem;
+  background: var(--white);
+  color: var(--red);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 999px;
+}
+.home-link:hover { background: var(--black); color: var(--white); }
+
+/* ===== Homepage: two boxes side by side ===== */
+.home {
+  flex: 1;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.box {
+  border: 3px solid var(--black);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--white);
+}
+.box-title {
+  margin: 0;
+  padding: 0.75rem;
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  font-size: 1.25rem;
+}
+.box-body { padding: 1rem; min-height: 200px; }
+
+.pill {
+  display: block;
+  margin-bottom: 0.9rem;
+  padding: 0.8rem 1rem;
+  background: var(--red);
+  color: var(--white);
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border-radius: 999px;
+  transition: background 0.2s, transform 0.2s;
+}
+.pill:hover, .pill:focus { background: var(--red-dark); transform: translateY(-2px); }
+
+.status { text-align: center; color: #555; margin: 1rem 0; }
+
+/* ===== Footer ===== */
+.site-footer {
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 1.25rem 1rem;
+  font-size: 0.85rem;
+}
+.site-footer p { margin: 0 auto; max-width: 800px; }
+
+/* ===== Practice page ===== */
+.practice {
+  flex: 1;
+  width: 100%;
+  max-width: 820px;
+  margin: 1.25rem auto 2rem;
+  padding: 0 1rem;
+}
+
+.title-bar {
+  margin: 0 0 0.75rem;
+  padding: 0.8rem 1rem;
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  border-radius: var(--radius);
+}
+
+.select-bar select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--white);
+  background: var(--black);
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.select-bar select option { background: var(--black); color: var(--white); }
+
+/* Counters + progress: stays visible at the top while scrolling */
+.stats-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin-top: 0.75rem;
+  padding: 0.6rem 0 0.5rem;
+  background: var(--white);
+  border-bottom: 2px solid #ddd;
+}
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  font-size: 0.95rem;
+}
+.stats .good { color: #0b7a3b; }
+.stats .bad  { color: var(--red); }
+.reset-btn {
+  margin-left: auto;
+  padding: 0.3rem 0.9rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--red);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.reset-btn:hover { background: var(--red-dark); }
+
+.progress {
+  height: 8px;
+  margin-top: 0.5rem;
+  background: #e3e3e3;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--red);
+  transition: width 0.3s;
+}
+
+/* Messages */
+.message {
+  margin: 1rem 0;
+  padding: 1rem;
+  text-align: center;
+  background: var(--grey);
+  border: 2px solid var(--black);
+  border-radius: var(--radius);
+}
+.notice {
+  margin: 1rem 0;
+  padding: 0.7rem 1rem;
+  background: #fff7d6;
+  border: 2px solid #e0b800;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+.notice summary { cursor: pointer; font-weight: 700; }
+
+/* Questions */
+.question { padding: 1rem 0; border-bottom: 1px solid #e5e5e5; }
+.q-text {
+  margin: 0 0 0.7rem;
+  font-size: 1.1rem;
+  white-space: pre-line; /* keeps line breaks typed in the spreadsheet */
+  overflow-wrap: anywhere;
+}
+.q-num { font-weight: 800; margin-right: 0.25rem; }
+
+.option {
+  display: flex;
+  gap: 0.6rem;
+  width: 100%;
+  margin: 0 0 0.45rem;
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  font: inherit;
+  color: var(--black);
+  background: var(--white);
+  border: 2px solid #d6d6d6;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+.opt-key  { font-weight: 800; flex: none; }
+.opt-text { overflow-wrap: anywhere; }
+
+.question:not(.locked) .option:hover { border-color: var(--red); background: #fff4f4; }
+.question.locked .option { cursor: default; }
+
+.option.correct {
+  background: #d9f7e3;
+  border-color: var(--green);
+  color: #0b5d2c;
+  font-weight: 600;
+}
+.option.correct::after { content: "✓"; margin-left: auto; font-weight: 800; }
+.option.wrong {
+  background: #fde0e0;
+  border-color: var(--red);
+  color: #7a0000;
+}
+.option.wrong::after { content: "✗"; margin-left: auto; font-weight: 800; }
+
+.q-problem { color: var(--red); font-size: 0.85rem; margin: 0.3rem 0 0; }
+
+/* Groups: an instruction box followed by its questions */
+.group {
+  margin: 1.25rem 0;
+  border: 2px solid var(--black);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.stimulus {
+  padding: 1rem;
+  background: var(--grey);
+  border-bottom: 2px solid var(--black);
+}
+.stimulus-text { margin: 0; font-weight: 600; white-space: pre-line; overflow-wrap: anywhere; }
+.group-questions { padding: 0 1rem; }
+.group-questions .question:last-child { border-bottom: 0; }
+
+/* ===== Mobile ===== */
+@media (max-width: 700px) {
+  .home { grid-template-columns: 1fr; gap: 1.25rem; margin: 1.25rem auto; }
+  .site-title { font-size: 1.5rem; }
+  .site-header { padding: 1rem 0.75rem; }
+  .home-link { left: 0.5rem; font-size: 0.85rem; padding: 0.3rem 0.6rem; }
+  .title-bar { font-size: 1.05rem; }
+  .q-text { font-size: 1.02rem; }
+}
+
+/* ===== Stage 6: passages, tables, images, enlarge view ===== */
+
+/* The group must not clip its children, or the sticky box would not stick. */
+.group { overflow: visible; }
+.stimulus { border-radius: 12px 12px 0 0; }
+
+.passage {
+  margin: 0.7rem 0 0;
+  white-space: pre-line;   /* keeps the paragraph breaks you typed */
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.caption { margin: 0.5rem 0 0; font-size: 0.9rem; color: #444; text-align: center; }
+
+/* Tables */
+.table-wrap { margin-top: 0.75rem; overflow-x: auto; }
+.data-table { border-collapse: collapse; width: 100%; background: var(--white); font-size: 0.95rem; }
+.data-table th, .data-table td { border: 1px solid #888; padding: 0.4rem 0.6rem; text-align: center; }
+.data-table th { background: var(--black); color: var(--white); }
+.data-table tr:nth-child(even) td { background: #f7f7f7; }
+
+/* Pictures: never stretched, never wider than the screen */
+.figure { margin: 0.75rem 0 0; text-align: center; }
+.figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;            /* keeps the original shape */
+  margin: 0 auto;
+  background: var(--white);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: zoom-in;
+}
+.question > .figure { margin: 0 0 0.8rem; }
+.img-missing {
+  padding: 0.6rem;
+  color: var(--red);
+  background: #fff0f0;
+  border: 1px dashed var(--red);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* On tablets/computers the shared box stays visible while you answer the group.
+   If it is very tall it scrolls inside itself. */
+@media (min-width: 701px) and (min-height: 650px) {
+  .stimulus {
+    position: sticky;
+    top: var(--stats-h, 0px);
+    z-index: 5;
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+}
+
+/* Enlarged picture view */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.92);
+  cursor: zoom-out;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;     /* keeps the shape */
+  background: var(--white);
+  border-radius: 6px;
+}
+.lightbox-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  color: var(--white);
+  background: var(--red);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+body.no-scroll { overflow: hidden; }

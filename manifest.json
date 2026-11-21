@@ -1,0 +1,74 @@
+{
+  "pyqs": [
+    {
+      "id": "UPSSSC-PET",
+      "name": "UPSSSC PET",
+      "papers": [
+        {
+          "id": "2026-25-Oct-Shift-2",
+          "name": "2026 25 Oct Shift 2",
+          "hasStimuli": true
+        }
+      ]
+    },
+    {
+      "id": "SSC",
+      "name": "SSC",
+      "papers": []
+    },
+    {
+      "id": "UP-Police-Constable",
+      "name": "UP Police Constable",
+      "papers": []
+    },
+    {
+      "id": "Delhi-Police-Constable",
+      "name": "Delhi Police Constable",
+      "papers": []
+    },
+    {
+      "id": "Sample-Exam",
+      "name": "Sample Exam",
+      "papers": [
+        {
+          "id": "Sample-Paper-1",
+          "name": "Sample Paper 1",
+          "hasStimuli": true
+        }
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "id": "Indian-Constitution",
+      "name": "Indian Constitution",
+      "parts": []
+    },
+    {
+      "id": "Indian-Politics",
+      "name": "Indian Politics",
+      "parts": []
+    },
+    {
+      "id": "History",
+      "name": "History",
+      "parts": []
+    },
+    {
+      "id": "Geography",
+      "name": "Geography",
+      "parts": []
+    },
+    {
+      "id": "Sample-Topic",
+      "name": "Sample Topic",
+      "parts": [
+        {
+          "id": "Part-1",
+          "name": "Part 1",
+          "hasStimuli": true
+        }
+      ]
+    }
+  ]
+}
