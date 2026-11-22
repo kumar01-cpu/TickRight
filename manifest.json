@@ -5,6 +5,11 @@
       "name": "UPSSSC PET",
       "papers": [
         {
+          "id": "2026-25-Oct-Shift-1",
+          "name": "2026 25 Oct Shift 1",
+          "hasStimuli": true
+        },
+        {
           "id": "2026-25-Oct-Shift-2",
           "name": "2026 25 Oct Shift 2",
           "hasStimuli": true
