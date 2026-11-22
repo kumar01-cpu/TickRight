@@ -81,7 +81,7 @@ function makeTable(tableText) {
     const tr = document.createElement("tr");
     line.split("|").forEach(function (cellText) {
       const cell = document.createElement(index === 0 ? "th" : "td");
-      cell.textContent = cellText.trim();
+      appendRichText(cell, cellText.trim());
       tr.appendChild(cell);
     });
     table.appendChild(tr);
@@ -105,7 +105,8 @@ function renderQuestion(q, context) {
   num.className = "q-num";
   num.textContent = "Q" + q.label + ".";
   title.appendChild(num);
-  title.appendChild(document.createTextNode(" " + q.text));
+  title.appendChild(document.createTextNode(" "));
+  appendRichText(title, q.text);
   card.appendChild(title);
 
   // This question's own picture (from the Image column of questions.csv).
@@ -126,7 +127,7 @@ function renderQuestion(q, context) {
     key.textContent = option.key + ")";
     const text = document.createElement("span");
     text.className = "opt-text";
-    text.textContent = option.text;
+    appendRichText(text, option.text);
 
     button.appendChild(key);
     button.appendChild(text);
@@ -175,7 +176,7 @@ function makeGroup(instructionText, extra, context) {
   if (text) {
     const instruction = document.createElement("p");
     instruction.className = "stimulus-text";
-    instruction.textContent = text;
+    appendRichText(instruction, text);
     box.appendChild(instruction);
   }
 
@@ -183,7 +184,7 @@ function makeGroup(instructionText, extra, context) {
     if (extra.passage) {
       const passage = document.createElement("div");
       passage.className = "passage"; // keeps paragraph breaks
-      passage.textContent = extra.passage;
+      appendRichText(passage, extra.passage);
       box.appendChild(passage);
     }
     if (extra.table) box.appendChild(makeTable(extra.table));
