@@ -3,61 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TickRight.com – Practice</title>
+  <meta name="robots" content="noindex">
+  <title>TickRight.com – Redirecting…</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <header class="site-header">
-    <a class="home-link" href="index.html">⌂ Home</a>
-    <h1 class="site-title">TickRight.com</h1>
-    <p class="site-tagline">Single Website – Multiple Exams</p>
-  </header>
-
   <main class="practice">
-    <!-- Heading, e.g. "UPSSSC PET Solved PYQs" -->
-    <h2 class="title-bar" id="page-title">Loading…</h2>
-
-    <!-- Paper / part dropdown (filled from manifest.json) -->
-    <div class="select-bar" id="select-bar" hidden>
-      <label for="item-select" class="visually-hidden">Choose a paper</label>
-      <select id="item-select"></select>
-    </div>
-
-    <!-- Counters, progress bar and restart button -->
-    <div class="stats-bar" id="stats-bar" hidden>
-      <div class="stats">
-        <span>Total: <b id="stat-total">0</b></span>
-        <span>Attempted: <b id="stat-attempted">0</b></span>
-        <span class="good">Correct: <b id="stat-correct">0</b></span>
-        <span class="bad">Incorrect: <b id="stat-incorrect">0</b></span>
-        <button type="button" id="reset-btn" class="reset-btn">↻ Restart</button>
-      </div>
-      <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
-    </div>
-
-    <!-- Messages: errors and data warnings -->
-    <div id="message" class="message" hidden></div>
-    <div id="notice" class="notice" hidden></div>
-
-    <!-- All questions are drawn here -->
-    <div id="questions"></div>
+    <p class="message" id="message">Taking you to your questions… <a href="index.html">Home</a></p>
   </main>
 
-  <footer class="site-footer">
-    <p>
-      Questions are compiled from examination sources and trusted references.
-      Despite careful checking, factual errors may occasionally occur.
-      If you spot a mistake, please report it to your-email@example.com.
-    </p>
-  </footer>
-
   <script src="js/utils.js"></script>
-  <script src="js/csv-parser.js"></script>
-  <script src="js/questions.js"></script>
-  <script src="js/stimuli.js"></script>
-  <script src="js/scoring.js"></script>
-  <script src="js/render.js"></script>
-  <script src="js/practice.js"></script>
+  <script>
+    // Old links look like practice.html?type=pyqs&group=UPSSSC-PET&item=2026-25-Oct-Shift-1
+    // The questions now live on their own pages, so we forward the visitor there.
+    (async function () {
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get("type");
+      const groupId = params.get("group");
+      let itemId = params.get("item");
+      try {
+        const manifest = await loadManifest();
+        const group = (manifest[type] || []).find(function (g) { return g.id === groupId; });
+        const items = group ? (type === "pyqs" ? group.papers : group.parts) : [];
+        if (items && items.length) {
+          if (!items.some(function (i) { return i.id === itemId; })) itemId = items[0].id;
+          window.location.replace([type, groupId, itemId].map(encodeURIComponent).join("/") + "/");
+          return;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+      window.location.replace("index.html"); // anything unknown goes to the homepage
+    })();
+  </script>
 </body>
 </html>

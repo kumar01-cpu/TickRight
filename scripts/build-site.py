@@ -42,6 +42,10 @@ TAGLINE = "Single Website – Multiple Exams"
 CONTACT_EMAIL = "your-email@example.com"
 # -----------------------------------------
 
+# Your website's address (no slash at the end). Change this when you buy tickright.com:
+SITE_URL = "https://kumar01-cpu.github.io/TickRight"
+BUILT_URLS = []          # filled in as pages are built; used for the sitemap
+
 OPTION_LETTERS = "ABCDE"
 SECTIONS = {            # data folder name -> (name of the list in manifest, page heading suffix)
     "pyqs": ("papers", " Solved PYQs"),
@@ -313,7 +317,7 @@ def render_body(items, stimuli, ctx):
     return "\n".join(out)
 
 
-def render_page(root, title, description, heading, options_html, body_html, total):
+def render_page(root, title, description, heading, options_html, body_html, total, canonical):
     return """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -321,6 +325,7 @@ def render_page(root, title, description, heading, options_html, body_html, tota
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <meta name="description" content="{description}">
+  <link rel="canonical" href="{canonical}">
   <link rel="stylesheet" href="{root}css/style.css">
 </head>
 <body>
@@ -368,6 +373,7 @@ def render_page(root, title, description, heading, options_html, body_html, tota
 </html>
 """.format(title=esc(title), description=esc(description), root=root, site=SITE_NAME,
            tagline=TAGLINE, heading=esc(heading), options=options_html, total=total,
+           canonical=esc(canonical),
            body=body_html, email=esc(CONTACT_EMAIL))
 
 
@@ -414,10 +420,26 @@ def build_one(section, group, item, list_key, suffix):
 
     out_dir = ROOT / section / group["id"] / item["id"]
     out_dir.mkdir(parents=True, exist_ok=True)
+    page_url = "%s/%s/%s/%s/" % (SITE_URL, section, quote(group["id"]), quote(item["id"]))
     (out_dir / "index.html").write_text(
-        render_page(root, title, description, heading, options, body, total), encoding="utf-8")
+        render_page(root, title, description, heading, options, body, total, page_url),
+        encoding="utf-8")
+    BUILT_URLS.append(page_url)
     print("  built %s  (%d questions)" % (label, total))
     return len(warnings)
+
+
+def write_sitemap():
+    """Writes sitemap.xml (list of every page) and robots.txt (points crawlers to it)."""
+    urls = [SITE_URL + "/"] + BUILT_URLS
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for url in urls:
+        lines.append("  <url><loc>%s</loc></url>" % html.escape(url))
+    lines.append("</urlset>")
+    (ROOT / "sitemap.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (ROOT / "robots.txt").write_text(
+        "User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % SITE_URL, encoding="utf-8")
 
 
 def main():
@@ -449,6 +471,7 @@ def main():
                     errors += 1
                     print("  ERROR [%s / %s / %s] %s" % (section, group["id"], item["id"], error))
 
+    write_sitemap()
     print("\nDone: %d page(s) built, %d warning(s), %d error(s)." % (pages, warnings, errors))
     sys.exit(1 if errors else 0)
 
