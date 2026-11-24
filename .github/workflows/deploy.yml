@@ -1,6 +1,7 @@
 # deploy.yml – runs automatically every time you upload (push) to GitHub.
-# 1) builds manifest.json AND the ready-made HTML pages from your data folders
-# 2) publishes the website to GitHub Pages
+# Job 1 (build):  builds manifest.json AND the ready-made HTML pages, packages the site.
+# Job 2 (deploy): publishes the package to GitHub Pages.
+# They are separate jobs on purpose, so GitHub has time to register the package.
 
 name: Build site and deploy
 
@@ -19,11 +20,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Get the project files
         uses: actions/checkout@v4
@@ -44,6 +42,13 @@ jobs:
         with:
           path: .
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Publish
         id: deployment
         uses: actions/deploy-pages@v4
