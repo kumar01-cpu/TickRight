@@ -67,7 +67,13 @@
     {
       "id": "Important-Indian-and-International-Day",
       "name": "Important Indian and International Day",
-      "parts": []
+      "parts": [
+        {
+          "id": "MCQs",
+          "name": "MCQs",
+          "hasStimuli": false
+        }
+      ]
     },
     {
       "id": "Sample-Topic",
