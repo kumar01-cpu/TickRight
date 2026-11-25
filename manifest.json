@@ -69,8 +69,18 @@
       "name": "Important Indian and International Day",
       "parts": [
         {
-          "id": "MCQs",
-          "name": "MCQs",
+          "id": "1-50",
+          "name": "1 50",
+          "hasStimuli": false
+        },
+        {
+          "id": "51-100",
+          "name": "51 100",
+          "hasStimuli": false
+        },
+        {
+          "id": "100-140",
+          "name": "100 140",
           "hasStimuli": false
         }
       ]
